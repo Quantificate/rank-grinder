@@ -27,7 +27,7 @@ while a < len(clearlinks):
     fulllink = 'http://www.premier-mountain-properties.net' + clearlinks[a]
     finallinks.append(fulllink)
     a=a+1
-
+print(finallinks)
 #iterate over finallinks
 z=0
 while z < len(finallinks):
@@ -37,6 +37,7 @@ while z < len(finallinks):
     breakdown = re.sub(r"([A-Z])", r" \1", breakdown)
     breakdown = breakdown.split()
     print(breakdown)
+    z=z+1
     # pull keyterm from url
     item = breakdown[0]
     while item != 'net':
@@ -153,6 +154,6 @@ while z < len(finallinks):
     final = [earl, ktdscore, psiscore, backscore, conscore, totalscore]
     print(final)
     with open('scores.csv', 'w') as fout:
-        w = csv.writer(f)
+        w = csv.writer(fout)
         w.writerow(['URL', 'Keyterm Score', 'PageSpeed Score', 'Backlink Score', 'Content Score', 'Total Score'])
-        w.writerows(final)
+        w.writerow(final)
