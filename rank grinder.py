@@ -5,7 +5,10 @@ import urllib.request
 import bleach
 import re
 import csv
-
+#open csv
+with open('scores.csv', 'w') as fout:
+    w = csv.writer(fout)
+    w.writerow(['URL', 'Keyterm Score', 'PageSpeed Score', 'Backlink Score', 'Content Score', 'Total Score'])
 #open sitemap
 with ul.request.urlopen('http://www.premier-mountain-properties.net/sitemap/') as response:
     html = response.read()
@@ -153,7 +156,5 @@ while z < len(finallinks):
     print("Site SEO Score: " + str(totalscore))
     final = [earl, ktdscore, psiscore, backscore, conscore, totalscore]
     print(final)
-    with open('scores.csv', 'w') as fout:
-        w = csv.writer(fout)
-        w.writerow(['URL', 'Keyterm Score', 'PageSpeed Score', 'Backlink Score', 'Content Score', 'Total Score'])
-        w.writerow(final)
+    #write data to csv
+    w.writerow(final)
