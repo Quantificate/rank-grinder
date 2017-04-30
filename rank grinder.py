@@ -6,11 +6,11 @@ import bleach
 import re
 import csv
 #open csv
-with open('scores.csv', 'w') as fout:
+with open('<csv file goes here>', 'w') as fout:
     w = csv.writer(fout)
-    w.writerow(['URL', 'Keyterm Score', 'PageSpeed Score', 'Backlink Score', 'Content Score', 'Total Score'])
+    w.writerow(['URL', 'Keyterm Density', 'Keyterm Score', 'PageSpeed Score', 'Backlink Score', 'Content Score', 'Total Score'])
     #open sitemap
-    with ul.request.urlopen('http://www.premier-mountain-properties.net/sitemap/') as response:
+    with ul.request.urlopen('<domain/sitemap url goes here>') as response:
         html = response.read()
 
     #extract sitemap links within the domain
@@ -27,7 +27,7 @@ with open('scores.csv', 'w') as fout:
     finallinks = []
     a=0
     while a < len(clearlinks):
-        fulllink = 'http://www.premier-mountain-properties.net' + clearlinks[a]
+        fulllink = '<domain url goes here>' + clearlinks[a]
         finallinks.append(fulllink)
         a=a+1
     print(finallinks)
@@ -46,7 +46,7 @@ with open('scores.csv', 'w') as fout:
         while item != 'net':
             breakdown.remove(breakdown[0])
             item = breakdown[0]
-        if breakdown[0] == 'net': breakdown.remove(breakdown[0])
+        if breakdown[0] == '<com, net, org, biz, whatever goes here>': breakdown.remove(breakdown[0])
         keyterm = breakdown
         # get html from url
         with ul.request.urlopen(earl) as response:
@@ -126,22 +126,17 @@ with open('scores.csv', 'w') as fout:
         else:
             ktdscore = 0
         # PageSpeed
-        # TODO: Find a way to run PageSpeed from the script.
-        # TODO: Assign score to PageSpeed. [score/20]?
-        psi = 89
+        psi = 0 #psi desktop score goes here
         psi = int(psi)
-        # TODO: Assign score to Mobile. [score/10]?
-        psimob = 71
+        psimob = 0 #psi mobile score goes here
         psimob = int(psimob)
         psiscore = ((psi / 20) + (psimob / 10)) / 2
         # Backlinks
         # TODO: Find a way to crawl for backlinks.
-        # TODO: Assign score to backlinks. [2 per]?
-        linx = 3
+        linx = 3 #backlink count goes here
         linx = int(linx)
         backscore = linx * 2
         # Content
-        # TODO: Assign a score to content [MC/10 + SC/20]?
         mainc = mcper
         secc = scper
         mainc = float(mainc)
@@ -154,7 +149,7 @@ with open('scores.csv', 'w') as fout:
         print("Backlink Score: " + str(backscore))
         print("Content Score: " + str(conscore))
         print("Site SEO Score: " + str(totalscore))
-        final = [earl, ktdscore, psiscore, backscore, conscore, totalscore]
+        final = [earl, dense, ktdscore, psiscore, backscore, conscore, totalscore]
         print(final)
         #write data to csv
         w.writerow(final)
